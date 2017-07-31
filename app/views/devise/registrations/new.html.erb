@@ -1,0 +1,46 @@
+<section class="jumbotron signbox">
+<h1>Sign Up</h1>
+</section>
+<section class="container">
+  <div class="container" style="margin-bottom:40px">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6" style="text-align:center">
+    <a href="<%=user_google_oauth2_omniauth_authorize_path%>" class="btn btn-block btn-social btn-lg btn-google" style="margin:auto;margin-bottom:10px;">
+                <span class="fa fa-google"></span> Sign up with Google
+            </a>
+            <a href="<%=user_facebook_omniauth_authorize_path%>" class="btn btn-block btn-social btn-lg btn-facebook" style="margin:auto;">
+              <span class="fa fa-facebook"></span> Sign up with Facebook
+            </a>
+            <hr>
+            <h2> Or sign up manually </h2>
+            <p> already have an account? Go to the <a href="/users/sign_in">Sign in</a> page.</p>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, class: 'form-control input-lg', required: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %>
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "off", class: 'form-control input-lg', required: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control input-lg', required: true %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Sign up", class: 'btn btn-primary btn-lg' %>
+  </div>
+<% end %>
+
+<%= render "devise/shared/links" %>
+</div>
+</div>
+</section>

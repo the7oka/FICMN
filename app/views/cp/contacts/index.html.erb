@@ -1,0 +1,47 @@
+<section class="container-fluid cpcontainer">
+<%= render partial: "cp/cp" %>
+	<section class="col-sm-9 pagecontainer ">
+	<% @queries.each do |q| %>
+		<div class="col-sm-12 querybox">
+			<p>Service: <%= q.subcat.cat.title.humanize %></p>
+			<p>Category: <%= q.subcat.title %></p>
+			<div id="qb<%=q.id%>" style="display:none">
+			<p>First name: <%= q.first_name %></p>
+			<p>Middle name: <%= q.middle_name %></p>
+			<p>Last name: <%= q.last_name %></p>
+			<p>Address line one: <%= q.address_one %></p>
+			<p>Address line two: <%= q.address_two %></p>
+			<p>Country: <%= q.state.country.name %></p>
+			<p>state: <%= q.state.name %></p>
+			<p>City: <%= q.city %></p>
+			<p>Postal code: <%= q.zip %></p>
+			<p>Phone: <%= q.phone %></p>
+			<p>E-mail: <%= q.email %></p>
+			<p>Date of birth: <%= q.birth.try(:strftime,"%b %d, %Y") %></p>
+			<p>Merital status: <%= q.status %></p>
+			</div>
+			<p>Details: <%= q.details %></p>
+			<p>Query created at: <%= q.created_at.try(:strftime,"%b %d, %Y") %></p>
+			<button class="btn btn-default qbtn" tog="qb<%=q.id%>">View more details</button>
+			<a href="/cp/contacts/<%=q.id%>/edit">Edit</a>
+			<a href="/cp/contacts/<%=q.id%>/delete">Destroy</a>
+		</div>
+	<% end %>
+	<%= will_paginate @queries, renderer: BootstrapPagination::Rails %>
+	</section>
+</section>
+	<script>
+		$(document).ready(function(){
+			$('#newstab').attr('class', 'list-group-item');
+			$('#contactstab').attr('class', 'list-group-item active');
+			$('.qbtn').click(function(){
+				x = $(this).attr('tog')
+				$('#'+x).slideToggle()
+				if ($(this).html() == 'View more details'){
+					$(this).html('View less details')
+				}else{
+					$(this).html('View more details')
+				}
+			})
+		})
+	</script>

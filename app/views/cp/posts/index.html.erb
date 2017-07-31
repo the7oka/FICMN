@@ -1,0 +1,15 @@
+<section class="container-fluid cpcontainer">
+<%= render partial: "cp/cp" %>
+	<section class="col-sm-9 pagecontainer ">
+	<a href="/cp/posts/new"><button class="btn btn-primary">New Post</button></a>
+		<% @posts.each do |p| %>
+			<div class="col-sm-12 postcontainer">
+				<h2><%=p.title%></h2>
+				<p><%=p.content%></p>
+				<%= link_to "edit", edit_cp_post_path(p) %>
+				<%= link_to 'Destroy', cp_post_path(p),  method: :delete, data: { confirm: 'Are you sure?' } %>
+			</div>
+		<% end %>
+		<%= will_paginate @posts, renderer: BootstrapPagination::Rails %>
+	</section>
+</section>

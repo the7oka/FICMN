@@ -1,0 +1,45 @@
+<div class="jumbotron queryjumbo">
+	<h1>Submit Payment</h1>
+</div>
+<div class="container">
+<div class="col-sm-4 subcatcol">
+	<h3>Submit Payment</h3><br>
+	<p>Service: <%= @payment_form.subcat.cat.title.humanize %></p><br>
+	<p>Category: <%= @payment_form.subcat.title %></p><br>
+	<p>First name: <%= @payment_form.first_name %></p><br>
+	<p>Middle name: <%= @payment_form.middle_name %></p><br>
+	<p>Last name: <%= @payment_form.last_name %></p><br>
+	<p>Address line one: <%= @payment_form.address_one %></p><br>
+	<p>Address line two: <%= @payment_form.address_two %></p><br>
+	<p>Country: <%= @payment_form.state.country.name %></p><br>
+	<p>state: <%= @payment_form.state.name %></p><br>
+	<p>City: <%= @payment_form.city %></p><br>
+	<p>Postal code: <%= @payment_form.zip %></p><br>
+	<p>Phone: <%= @payment_form.phone %></p><br>
+	<p>E-mail: <%= @payment_form.email %></p><br>
+	<p>Date of birth: <%= @payment_form.birth.try(:strftime,"%b %d, %Y") %></p><br>
+	<p>Merital status: <%= @payment_form.status %></p><br>
+	<p>Details: <%= @payment_form.details %></p>
+</div>
+<div class="col-sm-8 text-center">
+	<section class='container' style="display:none">
+	<% if @payment_form.subcat.cat.title == "taxes" || @payment_form.subcat.cat.title == "accounting" %>
+	<div id="cp6a729dda8f" style="margin: 10px 0" onclick="document.getElementById('pay_now_form_2fbb8d7dec').submit()"><div><div class='r-bg '><span class='r-fg r-fg-3'></span> <span class='r-fg r-fg-2'></span> <span class='r-fg r-fg-1'></span> <span class='r-fg r-fg-0'></span> </div><form action="https://checkout.globalgatewaye4.firstdata.com/pay" id="pay_now_form_2fbb8d7dec" method="post"><input type="hidden" name="x_login" value="WSP-F.I.C-cuyoFQCRPA" /><input type="hidden" name="x_show_form" value="PAYMENT_FORM" /><input type="hidden" name="x_fp_sequence" value="14988453193600201564" /><input type="hidden" name="x_fp_hash" value="PNB-1.0-4adf3e3bf36201935fc26aa410055c96b91a748c" /><input type="hidden" name="x_amount" /><input type="hidden" name="x_currency_code" value="USD" /><input type="hidden" name="x_test_request" value="FALSE" /><input type="hidden" name="x_relay_response" value="" /><input type="hidden" name="donation_prompt" /><input type="hidden" name="button_code" value="Pay Now FIC TAX - PAYROLL - ACCOUNT" /><div class="cpwrap"><button type="button">Pay Now</button></div></form><div class='r-bg '><span class='r-fg r-fg-0'></span> <span class='r-fg r-fg-1'></span> <span class='r-fg r-fg-2'></span> <span class='r-fg r-fg-3'></span> </div></div></div><style type="text/css">div#cp6a729dda8f{width: 200px; background-color: #FF9900;}div#cp6a729dda8f:hover{cursor: pointer}div#cp6a729dda8f * {background-color: #FFAA00;}div#cp6a729dda8f form{margin:0; padding:0;text-align:center}div#cp6a729dda8f div.cpwrap {width: 90%;border:0;margin:0 auto;padding: 0px; background-color: #FF9900}div#cp6a729dda8f button{width: 95%;border:0;margin:0;padding: 3px 0; background-color: #FF9900;text-align: center; color: #FFFFFF; }div#cp6a729dda8f:hover button {text-decoration: underline}div#cp6a729dda8f button:focus,div#cp6a729dda8f button:visited,div#cp6a729dda8f button:active{border:none;outline: none}div#cp6a729dda8f button {font-size: 16px}div#cp6a729dda8f div.cpwrap {border-left: 3px solid #FFAA00; border-right: 3px solid #FFAA00}div#cp6a729dda8f .r-fg{background-color: #FFAA00; border-color: #FFAA00}div#cp6a729dda8f .r-bg{background-color: white}div#cp6a729dda8f .r-fg{border-style: solid; border-width: 0px 1px; overflow: hidden; display: block; height: 1px; font-size: 1px}div#cp6a729dda8f .r-fg-0{margin-left: 1px; margin-right: 1px; border-width: 0px 1px !important; height: 1px !important}div#cp6a729dda8f .r-fg-1{margin-left: 2px; margin-right: 2px}div#cp6a729dda8f .r-fg-2{margin-left: 3px; margin-right: 3px}div#cp6a729dda8f .r-fg-3{margin-left: 5px; margin-right: 5px}</style>
+	<% else %>
+	<div id="cpb1cd9f67cc" style="margin: 10px 0" onclick="document.getElementById('pay_now_form_507cd3d599').submit()"><div><div class='r-bg '><span class='r-fg r-fg-3'></span> <span class='r-fg r-fg-2'></span> <span class='r-fg r-fg-1'></span> <span class='r-fg r-fg-0'></span> </div><form action="https://checkout.globalgatewaye4.firstdata.com/pay" id="pay_now_form_507cd3d599" method="post"><input type="hidden" name="x_login" value="WSP-FIC-I-KdnXaACRPA" /><input type="hidden" name="x_show_form" value="PAYMENT_FORM" /><input type="hidden" name="x_fp_sequence" value="1498844922498553031" /><input type="hidden" name="x_fp_hash" value="PNB-1.0-8e96cd6eb7e927276b152a762c37e981119327ac" /><input type="hidden" name="x_amount" /><input type="hidden" name="x_currency_code" value="USD" /><input type="hidden" name="x_test_request" value="FALSE" /><input type="hidden" name="x_relay_response" value="" /><input type="hidden" name="donation_prompt" /><input type="hidden" name="button_code" value="Pay Now FIC INC - INSURANCE" /><div class="cpwrap"><button type="button">Continue to secure payment gateway</button></div></form><div class='r-bg '><span class='r-fg r-fg-0'></span> <span class='r-fg r-fg-1'></span> <span class='r-fg r-fg-2'></span> <span class='r-fg r-fg-3'></span> </div></div></div><style type="text/css">div#cpb1cd9f67cc{width: 200px; background-color: #FF9900;}div#cpb1cd9f67cc:hover{cursor: pointer}div#cpb1cd9f67cc * {background-color: #FFAA00;}div#cpb1cd9f67cc form{margin:0; padding:0;text-align:center}div#cpb1cd9f67cc div.cpwrap {width: 90%;border:0;margin:0 auto;padding: 0px; background-color: #FF9900}div#cpb1cd9f67cc button{width: 95%;border:0;margin:0;padding: 3px 0; background-color: #FF9900;text-align: center; color: #FFFFFF; }div#cpb1cd9f67cc:hover button {text-decoration: underline}div#cpb1cd9f67cc button:focus,div#cpb1cd9f67cc button:visited,div#cpb1cd9f67cc button:active{border:none;outline: none}div#cpb1cd9f67cc button {font-size: 16px}div#cpb1cd9f67cc div.cpwrap {border-left: 3px solid #FFAA00; border-right: 3px solid #FFAA00}div#cpb1cd9f67cc .r-fg{background-color: #FFAA00; border-color: #FFAA00}div#cpb1cd9f67cc .r-bg{background-color: white}div#cpb1cd9f67cc .r-fg{border-style: solid; border-width: 0px 1px; overflow: hidden; display: block; height: 1px; font-size: 1px}div#cpb1cd9f67cc .r-fg-0{margin-left: 1px; margin-right: 1px; border-width: 0px 1px !important; height: 1px !important}div#cpb1cd9f67cc .r-fg-1{margin-left: 2px; margin-right: 2px}div#cpb1cd9f67cc .r-fg-2{margin-left: 3px; margin-right: 3px}div#cpb1cd9f67cc .r-fg-3{margin-left: 5px; margin-right: 5px}</style>
+	<% end %>
+	</section>
+	<section class="text-center container">
+	Please wait while we redirect you to payment gateway...
+	</section>
+</div>
+</div>
+<script>
+$(document).ready(function(){
+	<% if @payment_form.subcat.cat.title == "taxes" || @payment_form.subcat.cat.title == "accounting" %>
+		document.getElementById('pay_now_form_2fbb8d7dec').submit()
+	<%else%>
+		document.getElementById('pay_now_form_507cd3d599').submit()
+	<%end%>
+})
+</script>

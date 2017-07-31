@@ -1,0 +1,17 @@
+<section class="jumbotron signbox catsbox">
+	<h1> <a href="/services/<%=@subcat.cat.title%>" style="color:white"><%=@subcat.cat.title.humanize%></a> : <%=@subcat.title.humanize%></h1>
+</section>
+<section class="container descriptionbox">
+	<h2><p>FICMN <%=@subcat.cat.title.humanize%> : <%=@subcat.title.humanize%></p></h2>
+	<div class="col-sm-3"></div>
+	<div class="col-sm-9" style="font-size:120%">
+	<%=simple_format(@subcat.description)%><br>
+	<p><a href="/contact_us" style="color:white">REQUEST INFORMATION NOW</a></p>
+	</div>
+</section>
+<style>
+	.signbox{
+		background-image: url('<%=@subcat.cat.img_link%>');
+		background-position: 50% 50%;
+	}
+</style>

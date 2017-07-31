@@ -1,0 +1,72 @@
+<div class="jumbotron queryjumbo">
+	<h1><%=@cat.title.humanize%></h1>
+</div>
+<div class="container">
+<div class="col-sm-4 subcatcol">
+	<h3><%=@subcats.first.title%></h3>
+	<p><%=@subcats.first.description%></p>
+</div>
+<div class="col-sm-8">
+<%= form_for @query, url: cp_contacts_edit_path do |f| %>
+	<%= collection_select(:query, :subcat_id, @subcats.order(:title) , :id ,:title, {}, prompt: true,class: 'form-control') %>
+	<%= f.text_field :first_name, class: "form-control", required: true, placeholder: "First Name" %>
+	<%= f.text_field :middle_name, class: "form-control", placeholder: "Middle Name (optional)" %>
+	<%= f.text_field :last_name, class: "form-control", required: true, placeholder: "Last Name" %>
+	<%= f.text_field :birth, class: 'form-control', required: true, placeholder: 'Date of birth' %>
+	<%= f.select :status,  Query::STATUS_TYPES, {:include_blank => 'Choose your merital status'},{ required: true, class: "form-control"}%>
+	<%= f.text_field :address_one, class: "form-control", required: true, placeholder: "Address line one" %>
+	<%= f.text_field :address_two, class: "form-control", required: true, placeholder: "Address line two (optional)" %>
+	<%= collection_select(:state,:country_id, Country.order(:name) , :id ,:name,{:include_blank => 'All Countries'}, required: true,class: 'form-control',id: "countrylist") %>
+	<%= grouped_collection_select(:query, :state_id, Country.order(:name) , :states ,:name, :id, :name,{}, required: true,class: 'form-control',id: "statelist") %>
+	<%= f.text_field :city, class: "form-control", required: true, placeholder: "City" %>
+	<%= f.number_field :zip, class: "form-control", required: true, placeholder: "Postal code" %>
+	<%= f.email_field :email, class: "form-control", required: true, placeholder: "Email (example@example.com)" %>
+	<%= f.phone_field :phone, class: "form-control", required: true, placeholder: "Enter phone number" %>
+	<%= f.text_area :details, class: "form-control", placeholder: "Enter any details you find useful to your query here" %>
+	<%= f.submit "Submit your query", class: "btn btn-primary" %>
+<% end %>
+</div>
+</div>
+  <script type="text/javascript" src='/assets/jquery-ui.min.js'></script>
+  <link rel="stylesheet" href="/assets/jquery-ui.min.scss">
+<script>
+	$(document).ready(function(){
+		$('#query_subcat_id').change(function(){
+			x = $('#query_subcat_id').val()
+			$.ajax({
+			    type: "GET",
+			    url: "/getsubcat/"+x,
+			    dataType: "json",
+			    success: function(data){
+			        console.log(data)
+			        $('.subcatcol h3').html(data.title)
+			        $('.subcatcol p').html(data.description)
+			    }        
+			});
+		})
+  	$( "#query_birth" ).datepicker({
+		dateFormat: 'D, dd M yy',
+		changeMonth: true,
+		yearRange: '1800:+0',
+		changeYear: true
+    });
+		  	c="";
+  	states = $('#statelist').html()
+	$('#statelist').html("<option value="+c+">Select a country first</option>")
+	options= null;
+	country = $('#countrylist :selected').text();
+		options = $(states).filter("optgroup[label="+'"'+country+'"'+"]").html();
+  	$('#countrylist').change(function() {
+		country = $('#countrylist :selected').text();
+		console.log(country);
+		options = $(states).filter("optgroup[label="+'"'+country+'"'+"]").html();
+		console.log(options);
+		if (options == null){
+			$('#statelist').html("<option value="+c+">Select a country first</option>")
+		}
+		else{
+			$('#statelist').html(options)
+		}
+		});
+	})
+</script>

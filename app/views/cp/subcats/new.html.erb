@@ -1,0 +1,21 @@
+<section class="container-fluid cpcontainer">
+<%= render partial: "cp/cp" %>
+	<section class="col-sm-9 pagecontainer ">
+		<%= form_for @subcat, url: cp_subcats_path do |f| %>
+		<%= f.hidden_field :id, value: Subcat.last.id+1 %>
+	Category:
+		<%= collection_select(:subcat, :cat_id, Cat.order(:title) , :id ,:title, {}, prompt: true,class: 'form-control') %>
+	Title:
+		<%= f.text_field :title, class: "form-control", required: true %>
+	description:
+		<%= f.text_area :description, class: "form-control", required: true %>
+		<%= f.submit "Post", class: "btn btn-primary" %>
+	<% end %>
+	</section>
+</section>
+	<script>
+		$(document).ready(function(){
+			$('#newstab').attr('class', 'list-group-item');
+			$('#servicestab').attr('class', 'list-group-item active');
+		})
+	</script>

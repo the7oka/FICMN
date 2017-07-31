@@ -1,0 +1,13 @@
+<section class="container-fluid" style="min-height:500px">
+	<div class="jumbotron signbox">
+		<h1> News </h1>
+	</div>
+	<% @posts.each do |p| %>
+		<div class="container newscontainer">
+			<p><%=p.created_at.try(:strftime,"%b %d, %Y")%></p>
+			<h2><%=p.title%></h2>
+			<p><%=p.content%></p>
+		</div>
+	<% end %>
+	<%= will_paginate @posts, renderer: BootstrapPagination::Rails %>
+</section>

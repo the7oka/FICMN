@@ -1,0 +1,11 @@
+Dear FICMN Admin,<br>
+A payment from <%=@payment_form.email%> was just submitted to the website<br>
+First Name : <%=@payment_form.first_name%><br>
+Last Name : <%=@payment_form.last_name%><br>
+Service : <%if @payment_form.subcat.present? %><%=@payment_form.subcat.cat.title %><% end %><br>
+Sub-service : <%if @payment_form.subcat.present? %><%=@payment_form.subcat.title %><% end %><br>
+Email : <%=@payment_form.email %><br>
+Phone : <%=@payment_form.phone %><br>
+
+Best regards from FICMN.com<br>
+Management

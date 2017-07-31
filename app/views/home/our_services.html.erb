@@ -1,0 +1,58 @@
+<section class="jumbotron signbox">
+	<h1 >SERVICES</h1>
+</section>
+<section class="container text-center">
+<h2>F.I.C. is committed to getting you exactly what you need.</h2>
+	<% Cat.where('id = ?' , 4).each do |c| %>
+	<div class="col-sm-3">
+	<div class="text-center caty<%=c.id%>" style="padding:7px">
+		<h2 class="allcaps"><%=c.title%></h2><br>
+		<%c.subcats.order("id ASC").each do |s| %>
+		<h4 class="allcaps"><%=s.title%></h4><br>
+		<p style="text-align: left"><%=s.description%></p><br>
+		<hr>
+		<% end %>
+	</div>
+	</div>
+	<% end %>
+	<% Cat.where('id = ?' , 1).each do |c| %>
+	<div class="col-sm-3">
+	<div class="text-center caty<%=c.id%>" style="padding:7px">
+		<h2 class="allcaps"><%=c.title%></h2><br>
+		<%c.subcats.order("id ASC").each do |s| %>
+		<h4 class="allcaps"><%=s.title%></h4><br>
+		<p style="text-align: left"><%=s.description%></p><br>
+		<hr>
+		<% end %>
+	</div>
+	</div>
+	<% end %>
+	<% Cat.where('id = ?' , 2).each do |c| %>
+	<div class="col-sm-3">
+	<div class="text-center caty<%=c.id%>" style="padding:7px">
+		<h2 class="allcaps"><%=c.title%></h2><br>
+		<%c.subcats.order("id ASC").each do |s| %>
+		<h4 class="allcaps"><%=s.title%></h4><br>
+		<p style="text-align: left"><%=s.description%></p><br>
+		<hr>
+		<% end %>
+	</div>
+	</div>
+	<% end %>
+	<% Cat.where('id = ?' , 3).each do |c| %>
+	<div class="col-sm-3">
+	<div class="text-center caty<%=c.id%>" style="padding:7px">
+		<h2 class="allcaps"><%=c.title%></h2><br>
+		<%c.subcats.order("id ASC").each do |s| %>
+		<h4 class="allcaps"><%=s.title%></h4><br>
+		<p style="text-align: left"><%=s.description%></p><br>
+		<hr>
+		<% end %>
+	</div>
+	</div>
+	<% end %>
+</section>
+<script src="/assets/jquery.matchHeight-min.js"></script>
+<script>
+$('.text-center').matchHeight();
+</script>

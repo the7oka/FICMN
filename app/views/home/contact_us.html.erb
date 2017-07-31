@@ -1,0 +1,53 @@
+<div class="jumbotron queryjumbo">
+	<h1 class="allcaps" style="margin-left:60px !important">CONTACT US</h1>
+</div>
+<section class="container">
+	<div class="row">
+		<div class="col-sm-6 cntctmecontainer">
+	<h2 class="goldy boldy">Please fill our contact form:</h2>
+			<%= form_for @contactme do |f| %>
+				<%= collection_select(:subcat,:cat_id, Cat.order(:title) , :id ,:title,{:include_blank => 'All Services'}, required: true,class: 'form-control',id: "catlist") %>
+    <%= grouped_collection_select(:contactme, :subcat_id, Cat.order(:title) , :subcats ,:title, :id, :title,{}, required: true,class: 'form-control',id: "subcatlist") %>
+			<%= f.text_field :name, class: "form-control", required: true, placeholder: "Full Name" %>
+				<%= f.email_field :email, class: "form-control", placeholder: "Email (example@example.com)(optional)" %>
+				<%= f.phone_field :phone, class: "form-control", required: true, placeholder: "Enter phone number" %>
+				<%= f.text_area :details, class: "form-control", placeholder: "Enter any details you find useful to your payment_form here", style: 'height:250px;margin-bottom:10px' %>
+			    <%= f.submit :Submit, class: 'btn btn-primary' %>
+			<% end %>
+		</div>
+		<div class="col-sm-6">
+		<h2 class='goldy boldy'>Or send us an email on :</h2>
+		<h3 class='goldy boldy'>insurance@ficmn.com<br>tax@ficmn.com<br>1877-508-0888</h3>
+		</div>	
+	</div>
+</section>
+<script>
+$(document).ready(function(){
+	  c="";
+      subcats = $('#subcatlist').html()
+  $('#subcatlist').html("<option value="+c+">Select Category first</option>")
+  options= null;
+  cat = $('#catlist :selected').text();
+    options = $(subcats).filter("optgroup[label="+'"'+cat+'"'+"]").html();
+    $('#catlist').change(function() {
+    cat = $('#catlist :selected').text();
+      if (cat == 'insurance'){
+    $('#polnum').css('display','block');
+    $("#polnum").prop('required',true);
+  }else{
+    $('#polnum').css('display','none');
+    $("#polnum").prop('required',false);
+    $('#polnum').val('');
+  }
+    console.log(cat);
+    options = $(subcats).filter("optgroup[label="+'"'+cat+'"'+"]").html();
+    console.log(options);
+    if (options == null){
+      $('#subcatlist').html("<option value="+c+">Select Category first</option>")
+    }
+    else{
+      $('#subcatlist').html(options)
+    }
+    });
+})
+</script>

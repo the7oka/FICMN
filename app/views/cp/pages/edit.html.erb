@@ -1,0 +1,21 @@
+
+<section class="container-fluid cpcontainer">
+<%= render partial: "cp/cp" %>
+	<section class="col-sm-9 pagecontainer ">
+		<%= form_for @page, url: cp_page_path do |f| %>
+
+	Title: <%= f.text_field :head, class: "form-control", required: true %>
+	Upper text:
+		<%= f.text_area :text1, class: "form-control", required: true %>
+	Lower text:
+		<%= f.text_area :text2, class: "form-control", required: true %>
+		<%= f.submit "Save", class: "btn btn-primary" %>
+	<% end %>
+	</section>
+</section>
+<script>
+		$(document).ready(function(){
+			$('#newstab').attr('class', 'list-group-item');
+			$('#pagestab').attr('class', 'list-group-item active');
+		})
+	</script>

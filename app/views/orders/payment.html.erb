@@ -1,0 +1,90 @@
+<div class="jumbotron">
+<h1>Payment page</h1>
+</div>
+<section class="container" style="margin-top:20px">
+  <div class="col-sm-4" style="background-color: white;border-radius: 4px;padding:10px">
+    <h3>Payment details</h3>
+    (please review the following details before submiting your payment)
+    <p style="font-weight:bold;font-size:120%"><em>Your payment </em>: <span id="pamount"></span> USD
+  </div>
+  <div class="col-sm-8 text-center box">
+  
+    <%= form_for @order, url: new_payment_path do |f| %>
+  <% if @order.express_token.blank? %>
+        <%= f.hidden_field :user_id, value: current_user.id %>
+        <%= collection_select(:subcat,:cat_id, Cat.order(:title) , :id ,:title,{:include_blank => 'All Services'}, required: true,class: 'form-control',id: "catlist") %>
+        <%= grouped_collection_select(:order, :subcat_id, Cat.order(:title) , :subcats ,:title, :id, :title,{}, required: true,class: 'form-control',id: "subcatlist") %>
+        <%=f.number_field :policy_num,class: 'form-control input-sm',style: 'display:none', placeholder: 'Policy number', id: 'polnum' %>
+  		<%= f.number_field :payment_amount, class: 'form-control input-sm', required:true, placeholder: 'Payment amount' %>
+        <%= f.text_field :first_name,class: 'form-control input-sm',required: true,placeholder: 'First name' %>
+        <%= f.text_field :last_name,class: 'form-control input-sm',required: true,placeholder: 'Last name' %>
+        <%= f.text_field :business_name,class: 'form-control input-sm',placeholder: 'Business name (optional)' %>
+        <%= f.select :card_type, [["Visa", "visa"], ["MasterCard", "master"], ["Discover", "discover"], ["American Express", "american_express"]], {},class: "form-control input-sm" %>
+        <%= f.text_field :card_number,class: 'form-control input-sm',required: true,placeholder: 'xxxx-xxxx-xxxx-xxxx' %>
+    "Card Verification Value (CVV)"
+        <%= f.text_field :card_verification,class: 'form-control input-sm',required: true,placeholder: 'CCV' %>
+        <%= f.date_select :card_expires_on,{ :discard_day => true, :start_year => Date.today.year, :end_year => (Date.today.year+10), :add_month_numbers => true}, {class: 'form-control input-sm'} %>
+        <div class="col-sm-12">
+        <div>
+        Billing Address
+        </div>
+          <div class="col-sm-6">
+            <%= f.text_field :billing_address,class: 'form-control input-sm col-sm-6',required: true,placeholder: 'Address' %>
+          </div>
+          <div class="col-sm-6">
+            <%= f.text_field :billing_address_2,class: 'form-control input-sm col-sm-6',placeholder: 'Address line 2 (optional)' %>
+          </div>
+          <div class="col-sm-6">
+            <%= f.text_field :city,class: 'form-control input-sm col-sm-6',required: true,placeholder: 'City' %>
+          </div>
+          <div class="col-sm-6">
+            <%= f.text_field :state,class: 'form-control input-sm col-sm-6',required: true,placeholder: 'State of Province' %>
+          </div>
+          <div class="col-sm-6">
+            <%= f.text_field :country,class: 'form-control input-sm col-sm-6',required: true,placeholder: 'country' %>
+          </div>
+          <div class="col-sm-6">
+            <%= f.text_field :zipcode,class: 'form-control input-sm col-sm-6',required: true,placeholder: 'Postal code' %>
+          </div>
+        </div>
+        <%= f.phone_field :phone,class: 'form-control input-sm',required: true,placeholder: 'Phone' %>
+        <%= f.email_field :email,class: 'form-control input-sm',required: true,placeholder: 'Email (example@example.com)' %>
+        <div class="col-sm-12" style="text-align: center">
+        <img src="/assets/cc-min.png" style="margin-top:20px;width:50%;"/>
+        </div>
+    <% end %>
+    <div class="col-sm-12 text-center" style="background-color: white;border-radius: 4px;padding:10px;margin-top:20px">
+    <p>Please review the donation information and confirm your payment</p>
+  <%= f.submit "Submit Payment", class: "btn btn-success btn-lg" %>
+  </div>
+    <% end %>
+    </div>
+</div>
+</section>
+<script>
+$(document).ready(function(){
+  c="";
+      subcats = $('#subcatlist').html()
+  $('#subcatlist').html("<option value="+c+">Select a cat first</option>")
+  options= null;
+  cat = $('#catlist :selected').text();
+    options = $(subcats).filter("optgroup[label="+'"'+cat+'"'+"]").html();
+    $('#catlist').change(function() {
+    cat = $('#catlist :selected').text();
+      if (cat == 'insurance'){
+    $('#polnum').css('display','block')
+  }else{
+    $('#polnum').css('display','none')
+  }
+    console.log(cat);
+    options = $(subcats).filter("optgroup[label="+'"'+cat+'"'+"]").html();
+    console.log(options);
+    if (options == null){
+      $('#subcatlist').html("<option value="+c+">Select a cat first</option>")
+    }
+    else{
+      $('#subcatlist').html(options)
+    }
+    });
+})
+</script>

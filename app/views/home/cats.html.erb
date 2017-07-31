@@ -1,0 +1,49 @@
+<section class="jumbotron signbox catsbox">
+	<h1 class="allcaps" style="margin-left:60px"><%=@cat.title.humanize%></h1>
+</section>
+<section class="container descriptionbox">
+	<h2><p class="allcaps">FICMN <%=@cat.title.humanize%></p></h2>
+	<div class="col-sm-3"></div>
+	<div class="col-sm-9 boldy" style="font-size:120%">
+	<%=simple_format(@cat.description)%><br>
+	<p><a href="/contact_us" style="color:white">REQUEST INFORMATION NOW</a></p>
+	</div>
+</section>
+<section class="container descriptionbox fgbox">
+	<h2><p class="allcaps"><%=@cat.title.humanize%> services</p></h2>
+	<div class="col-sm-3"></div>
+	<div class="col-sm-9">
+	<% if @cat.title == "taxes" %>
+	<h3 class="boldy goldy">F.I.C. BUSINESS TAX</h3>
+	<% @cat.subcats.where('business IS true').order("id ASC").each do |s| %>
+	<div class="col-sm-12">
+		<h3 class="allcaps" style="display:inline"><p><%=s.title.humanize%>: </p></h3>
+		<p style="display:inline"><%=truncate(s.description, :length => 150)%> <a href="/sub_services/<%=s.id%>" style="color:white">LEARN MORE</a></p><br>
+		<p><a href="/contact_us" style="color:white">REQUEST INFORMATION NOW</a></p>
+	</div>
+	<% end %>
+	<h3 class="boldy goldy">F.I.C. INDIVIDUAL TAX</h3>
+	<% @cat.subcats.where('business IS false').order("id ASC").each do |s| %>
+	<div class="col-sm-12">
+		<h3 class="allcaps" style="display:inline"><p><%=s.title.humanize%>: </p></h3>
+		<p style="display:inline"><%=truncate(s.description, :length => 150)%> <a href="/sub_services/<%=s.id%>" style="color:white">LEARN MORE</a></p><br>
+		<p><a href="/contact_us" style="color:white">REQUEST INFORMATION NOW</a></p>
+	</div>
+	<% end %>
+	<% else %>
+	<% @cat.subcats.order("id ASC").each do |s| %>
+	<div class="col-sm-12">
+		<h3 class="allcaps" style="display:inline"><p><%=s.title.humanize%>: </p></h3>
+		<p style="display:inline"><%=truncate(s.description, :length => 150)%> <a href="/sub_services/<%=s.id%>" style="color:white">LEARN MORE</a></p><br>
+		<p><a href="/contact_us" style="color:white">REQUEST INFORMATION NOW</a></p>
+	</div>
+	<% end %>
+	<% end %>
+	</div>
+</section>
+<style>
+	.signbox{
+		background-image: url('<%=@cat.img_link%>');
+		background-position: 50% 50%;
+	}
+</style>

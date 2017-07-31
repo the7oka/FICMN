@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>FICMN <% if @title.present? %>| <%=@title.html_safe%> <%end%></title>
+    <%= csrf_meta_tags %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="/assets/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src='/assets/jquery-ui.min.js'></script>
+    <link rel="stylesheet" href="/assets/jquery-ui.min.scss">
+    <link rel="stylesheet" href="/assets/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/application.scss">
+    <link rel="stylesheet" href="/assets/animate.css">
+    <script type="text/javascript" src="/assets/bootstrap.js"></script>
+    <%# stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= yield(:head) %>
+  </head>
+
+  <body>
+    <body>
+  	<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/" style="font-size:250%">
+        <span class="brandimg">
+          <img src="/assets/logo.png"/>
+        </span>
+        <span class="brandtitle">
+          F.I.C.
+        </span>
+      </a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+      <li><a href="/">HOME</a></li>
+        <li><a href="/about">WHO WE ARE<span class="sr-only">(current)</span></a></li>
+        <li><a href="/locations">OUR LOCATIONS</a></li>
+        <li><a href="/payment_forms/new">MAKE A PAYMENT</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">WHAT WE DO<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/our_services">OUR SERVICES</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="/services/taxes">TAXES</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="/services/accounting">ACCOUNTING</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="/services/insurance">INSURANCE</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="/services/retirement">RETIREMENT</a></li>
+          </ul>
+        </li>
+      </ul>
+<!--       <form class="navbar-form navbar-left">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form> -->
+      <ul class="nav navbar-nav navbar-right">
+      <% if user_signed_in? %>
+      	<li><a href="/myqueries">Hello, <%=current_user.email%></a></li>
+      	<li><a href="<%=destroy_user_session_path%>">Sign out</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tools <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/myqueries">My quote requests</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="/myhistory">My payment forms</a></li>
+          </ul>
+        </li>
+      <% else %>
+      	<li><a href="/users/sign_in">Log in</a></li>
+        <li><a href="/users/sign_up">Join us</a></li>
+      <% end %>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+    <%= yield %>
+<footer style="background-color: #222222;margin-top:20px">
+  <div class="container footercontainer">
+  <div class="col-sm-2">
+    <a href='/'><img src="/assets/logo.png" style="width:120px"/></a>
+  </div>
+  <div class="col-sm-10">
+    <div class="col-sm-4">
+    <h4 style="color:white">FICMN</h4>
+      <ul class="linkslisto">
+        <li>
+          <a href="/">HOME</a>
+        </li>
+        <li>
+          <a href="/about">WHO WE ARE</a>
+        </li>
+        <li>
+          <a href="/locations">OUR LOCATIONS</a>
+        </li>
+        <li>
+          <a href="/news">NEWS</a>
+        </li>
+        <li>
+          <a href="/careers">CAREERS</a>
+        </li>
+        <li>
+          <a href="/contact_us">CONTACT US</a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm-4">
+    <h4 style="color:white">USERS</h4>
+      <ul class="linkslisto">
+        <li>
+          <a href="/users/sign_in">LOGIN</a>
+        </li>
+        <li>
+          <a href="/users/sign_up">JOIN US</a>
+        </li>
+        <li>
+          <a href=<%if user_signed_in?%>"/myqueries"<%else%>"/users/sign_up"<%end%>>MY QUOTE REQUESTS</a>
+        </li>
+        <li>
+          <a href=<%if user_signed_in?%>"/myhistory"<%else%>"/users/sign_up"<%end%>>MY PAYMENTS</a>
+        </li>
+        <li>
+          <a href="/cp">ADMIN LOGIN</a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm-4">
+      <h4 style="color:white">WHAT WE DO</h4>
+        <ul class="linkslisto">
+          <li>
+            <a href="/our_services">OUR SERVICES</a>
+          </li>
+          <li>
+            <a href="/services/taxes">TAXES SERVICES</a>
+          </li>
+          <li>
+            <a href="/services/accounting">ACCOUNTING SERVICES</a>
+          </li>
+          <li>
+            <a href="/services/insurance">INSURANCE SERVICES</a>
+          </li>
+          <li>
+            <a href="/services/retirement">RETIREMENT SERVICES</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    </div>
+    <div class="container socialconto">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center socialbuttons">
+                    <li>
+                        <a href="https://twitter.com/FICMN">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.facebook.com/FICMN/">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.google.com.eg/maps/uv?hl=en&pb=!1s0x880fcc2d9d27736f%3A0x5626099e91202f49!2m17!16m16!1b1!2m2!1m1!1e1!2m2!1m1!1e3!2m2!1m1!1e6!2m2!1m1!1e4!2m2!1m1!1e5!3m1!7e115!4s%2F%2Flh5.googleusercontent.com%2F--S4IbXzWcRw%2FWXV-wWbeZ_I%2FAAAAAAAAAEg%2FeiTbUYeBfeQ1-JheD-jvuAxy-_2BnDsHwCJkCGAYYCw%2Fw568-h320-k-no%2F&imagekey=!1e3!2s--S4IbXzWcRw%2FWXV-wWbeZ_I%2FAAAAAAAAAEg%2FeiTbUYeBfeQ1-JheD-jvuAxy-_2BnDsHwCJkCGAYYCw&sa=X&ved=0ahUKEwjLuKm5zKfVAhVEXRoKHcYfA2wQoioIaTAK&activetab=main">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/company-beta/3479258/">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                
+            </div>
+        </div>
+        <p class="copyright">Copyright &copy; FICMN.com 2017</p>
+    </div>
+</footer>
+  </body>
+</html>
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>

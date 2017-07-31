@@ -1,0 +1,38 @@
+<div class="jumbotron queryjumbo">
+	<h1>Hello, <%=@user.email%></h1>
+</div>
+<div class="container">
+<div class="col-sm-4 subcatcol">
+	<h3>My profile</h3>
+	<p>Signed up via: <%if @user.provider.present?%><%=@user.provider%><%else%>Manual signup<%end%></p>
+	<p>Joined Albeheary from : <%=@user.created_at%></p>
+</div>
+<div class="col-sm-8">
+	<h2>My invoices</h2>
+	<% if @invoices.length == 0 %>
+	Currently, You don't have any invoices. Please contacts us at support@albeheary.com if your invoice is not showing up.
+	<% else %>
+	<% @invoices.each do |i| %>
+	<div class="col-sm-12 querybox">
+		<p>Invoice #: <%=i.id%></p>
+		<p>Invoice amount: <%=i.amount%> USD</p>
+		<p>Invoice details: <%=i.details%></p>
+		<p>Invoice status: <%if i.paid?%>Paid<%else%>Not paid yet<a href="/invoices/<%=i.id%>/payment"><button class="btn btn-default">Pay invoice</button></a><%end%>
+	</div>
+	<% end %>
+	<% end %>
+</div>
+</div>
+<script>
+	$(document).ready(function(){
+		$('.qbtn').click(function(){
+			x = $(this).attr('tog')
+			$('#'+x).slideToggle()
+			if ($(this).html() == 'View more details'){
+				$(this).html('View less details')
+			}else{
+				$(this).html('View more details')
+			}
+		})
+	})
+</script>

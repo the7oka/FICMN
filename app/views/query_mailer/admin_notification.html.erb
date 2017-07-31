@@ -1,0 +1,21 @@
+Dear Admin,
+Kindly be informed that a Query was just submitted to albeheary.com regarding <%=@query.subcat.cat.title.humanize%>,<br>
+to view the full details of query or submit an invoice please go to the <a href="www.albeheary.com/cp/contacts">Control Panel</a><br>
+Here are the details for the query:
+			<p>Category: <%= @query.subcat.title %></p>
+			<p>First name: <%= @query.first_name %></p>
+			<p>Middle name: <%= @query.middle_name %></p>
+			<p>Last name: <%= @query.last_name %></p>
+			<p>Address line one: <%= @query.address_one %></p>
+			<p>Address line two: <%= @query.address_two %></p>
+			<p>Country: <%= @query.state.country.name %></p>
+			<p>state: <%= @query.state.name %></p>
+			<p>City: <%= @query.city %></p>
+			<p>Postal code: <%= @query.zip %></p>
+			<p>Phone: <%= @query.phone %></p>
+			<p>E-mail: <%= @query.email %></p>
+			<p>Date of birth: <%= @query.birth.try(:strftime,"%b %d, %Y") %></p>
+			<p>Merital status: <%= @query.status %></p>
+			<p>Details: <%= @query.details %></p>
+Best regards from albeheary.com
+Management

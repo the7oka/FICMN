@@ -1,0 +1,32 @@
+<section class="container-fluid cpcontainer">
+<%= render partial: "cp/cp" %>
+	<section class="col-sm-9 pagecontainer ">
+			<div class="col-sm-12 querybox">
+			<p>Service: <%= @query.subcat.cat.title.humanize %></p>
+			<p>Category: <%= @query.subcat.title %></p>
+			<div id="qb<%=@query.id%>">
+			<p>First name: <%= @query.first_name %></p>
+			<p>Middle name: <%= @query.middle_name %></p>
+			<p>Last name: <%= @query.last_name %></p>
+			<p>Address line one: <%= @query.address_one %></p>
+			<p>Address line two: <%= @query.address_two %></p>
+			<p>Country: <%= @query.state.country.name %></p>
+			<p>state: <%= @query.state.name %></p>
+			<p>City: <%= @query.city %></p>
+			<p>Postal code: <%= @query.zip %></p>
+			<p>Phone: <%= @query.phone %></p>
+			<p>E-mail: <%= @query.email %></p>
+			<p>Date of birth: <%= @query.birth.try(:strftime,"%b %d, %Y") %></p>
+			<p>Merital status: <%= @query.status %></p>
+			</div>
+			<p>Details: <%= @query.details %></p>
+			<p>Query created at: <%= @query.created_at.try(:strftime,"%b %d, %Y") %></p>
+		</div>
+	</section>
+</section>
+	<script>
+		$(document).ready(function(){
+			$('#newstab').attr('class', 'list-group-item');
+			$('#paymentstab').attr('class', 'list-group-item active');
+		})
+	</script>

@@ -1,0 +1,2 @@
+module Cp::PagesHelper
+end

@@ -1,0 +1,118 @@
+<section class="container-fluid cpcontainer">
+<%= render partial: "cp/cp" %>
+	<section class="col-sm-9 pagecontainer ">
+	<h3>Payments</h3>
+		<% @pfs.each do |q| %>
+		<div class="col-sm-12 querybox">
+			<p>Service: <%= q.subcat.cat.title.humanize %></p>
+			<p>Category: <%= q.subcat.title %></p>
+			<%if q.policy_num.present?%><p>Policy number: <%= q.policy_num %></p><%end%>
+			<div id="qb<%=q.id%>" style="display:none">
+			<p>First name: <%= q.first_name %></p>
+			<p>Middle name: <%= q.middle_name %></p>
+			<p>Last name: <%= q.last_name %></p>
+			<p>Address line one: <%= q.address_one %></p>
+			<p>Address line two: <%= q.address_two %></p>
+			<p>Country: <%= q.state.country.name %></p>
+			<p>state: <%= q.state.name %></p>
+			<p>City: <%= q.city %></p>
+			<p>Postal code: <%= q.zip %></p>
+			<p>Phone: <%= q.phone %></p>
+			<p>E-mail: <%= q.email %></p>
+			<p>Date of birth: <%= q.birth.try(:strftime,"%b %d, %Y") %></p>
+			<p>Merital status: <%= q.status %></p>
+			</div>
+			<p>Details: <%= q.details %></p>
+			<p>Query created at: <%= q.created_at.try(:strftime,"%b %d, %Y") %></p>
+			<button class="btn btn-default qbtn" tog="qb<%=q.id%>">View more details</button>
+			<a href="/cp/payment_forms/<%=q.id%>/edit">Edit</a>
+			<a href="/cp/payment_forms/<%=q.id%>/delete">Destroy</a>
+		</div>
+	<% end %>
+	<%= will_paginate @pfs, renderer: BootstrapPagination::Rails %>
+	</section>
+</section>
+	<script>
+		$(document).ready(function(){
+			$('#newstab').attr('class', 'list-group-item');
+			$('#paymentstab').attr('class', 'list-group-item active');
+			$('.qbtn').click(function(){
+				x = $(this).attr('tog')
+				$('#'+x).slideToggle()
+				if ($(this).html() == 'View more details'){
+					$(this).html('View less details')
+				}else{
+					$(this).html('View more details')
+				}
+			})
+		})
+	</script>
+	<!-- <h3>Invoices</h3>
+		<table class="table table-striped table-bordered table-hover table-condensed table-responsive">
+			<tr>
+		    	<th>Id</th>
+		    	<th>Paid?</th>
+		    	<th>User</th>
+		    	<th>Amount</th>
+		    	<th>Details</th>
+		    	<th>Related customer request</th>
+		    	<th>Created at</th>
+			</tr>
+		<% @invoices.each do |i| %>
+			<tr>
+				<th><%=i.id%></th>
+				<th><%if i.paid?%>Paid!<%else%>Not yet!<%end%></th>
+				<th><%if i.query.present?%><%=i.query.user.email%><%else%><%=i.order.user.email%><%end%></th>
+				<th><%=i.amount%></th>
+				<th><%=i.details%></th>
+				<th><%if i.query.present? %><a href="/cp/queries/show/<%=i.query.id%>">Request</a><%else%>Query Deleted <%end%></th>
+				<th><%=i.created_at%></th>
+			</tr>
+		<% end %>
+	</table>
+	<h3>Straight payments : success</h3>
+		<table class="table table-striped table-bordered table-hover table-condensed table-responsive">
+			<tr>
+		    	<th>Id</th>
+		    	<th>User</th>
+		    	<th>Amount in USD</th>
+		    	<th>Details</th>
+		    	<th>Created at</th>
+			</tr>
+		<% @paid.each do |i| %>
+			<tr>
+				<th><%=i.id%></th>
+				<th><%if i.order.user.present?%><%=i.order.user.email%><%end%></th>
+				<th><%=i.amount/100%></th>
+				<th><a href="/cp/payments/show/<%=i.id%>">Details</a></th>
+				<th><%=i.created_at%></th>
+			</tr>
+		<% end %>
+	</table>
+	<h3>Straight payments : failed</h3>
+		<table class="table table-striped table-bordered table-hover table-condensed table-responsive">
+			<tr>
+		    	<th>Id</th>
+		    	<th>User</th>
+		    	<th>Amount in USD</th>
+		    	<th>error</th>
+		    	<th>Created at</th>
+			</tr>
+		<% @unpaid.each do |i| %>
+			<tr>
+				<th><%=i.id%></th>
+				<th><%if i.order.user.present?%><%=i.order.user.email%><%end%></th>
+				<th><%=i.amount/100%></th>
+				<th><%=i.message%></th>
+				<th><%=i.created_at%></th>
+			</tr>
+		<% end %>
+	</table>
+	</section>
+</section>
+	<script>
+		$(document).ready(function(){
+			$('#newstab').attr('class', 'list-group-item');
+			$('#paymentstab').attr('class', 'list-group-item active');
+		})
+	</script> -->

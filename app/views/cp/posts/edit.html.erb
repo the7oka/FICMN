@@ -1,0 +1,12 @@
+<section class="container-fluid cpcontainer">
+<%= render partial: "cp/cp" %>
+	<section class="col-sm-9 pagecontainer ">
+	<%= form_for @post, url: cp_post_path do |f| %>
+	Title:
+		<%= f.text_field :title, class: "form-control", required: true %>
+	Content:
+		<%= f.text_area :content, class: "form-control", required: true %>
+		<%= f.submit "Post", class: "btn btn-primary" %>
+	<% end %>
+	</section>
+</section>

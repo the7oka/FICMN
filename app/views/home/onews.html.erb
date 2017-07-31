@@ -1,0 +1,35 @@
+<section class="container-fluid" style="min-height:500px">
+	<div class="jumbotron signbox">
+		<h1> Financial news </h1>
+	</div>
+    <section class="container-fluid">
+  <% (0..9).each do |n| %>
+    <div class="container newscontainer">
+    <div class="col-sm-4 imgb<%=n%>"></div>
+    <div class="col-sm-8">
+      <p id="dateb<%=n%>"></p>
+      <h2 id="titleb<%=n%>"></h2>
+      <p id="descb<%=n%>"></p>
+    </div>
+    </div>
+  <% end %>
+  </section>  
+</section>
+  <script>
+  $(document).ready(function(){
+  $.getJSON("https://newsapi.org/v1/articles?source=the-wall-street-journal&sortBy=top&apiKey=e652b3f5de2f47998156b7a99c81ad1c",demo) 
+  })
+  var demo = function(data) {
+    console.log(data)
+    <% (0..9).each do |n| %>
+    $("#dateb<%=n%>").html(datey(data.articles[<%=n%>].publishedAt))
+    $("#titleb<%=n%>").html("<a href='"+data.articles[<%=n%>].url+"'>"+data.articles[<%=n%>].title+"<a>")
+    $("#descb<%=n%>").html(data.articles[<%=n%>].description)
+    $(".imgb<%=n%>").html("<img src='"+data.articles[<%=n%>].urlToImage+"'/>")
+    <% end %>
+}
+  var datey = function(datei){
+    var date = new Date(datei);
+    return date.toLocaleString()
+  }
+  </script>

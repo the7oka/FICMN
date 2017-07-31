@@ -1,0 +1,24 @@
+<section class="container-fluid cpcontainer">
+<%= render partial: "cp/cp" %>
+	<section class="col-sm-9 pagecontainer ">
+	<% @contactmes.each do |q| %>
+		<div class="col-sm-12 querybox">
+			<p>Service: <%= q.subcat.cat.title.humanize %></p>
+			<p>Category: <%= q.subcat.title %></p>
+			<p>First name: <%= q.name %></p>
+			<p>Phone: <%= q.phone %></p>
+			<p>E-mail: <%= q.email %></p>
+			<p>Details: <%= q.details %></p>
+			<p>Query created at: <%= q.created_at.try(:strftime,"%b %d, %Y") %></p>
+			<a href="/cp/contactmes/<%=q.id%>/delete">Destroy</a>
+		</div>
+	<% end %>
+	<%= will_paginate @queries, renderer: BootstrapPagination::Rails %>
+	</section>
+</section>
+	<script>
+		$(document).ready(function(){
+			$('#newstab').attr('class', 'list-group-item');
+			$('#contactmestab').attr('class', 'list-group-item active');
+		})
+	</script>

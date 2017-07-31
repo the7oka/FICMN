@@ -1,0 +1,89 @@
+<div class="jumbotron queryjumbo">
+	<h1 class="allcaps" style="margin-left:60px !important">Submit Payment</h1>
+</div>
+<div class="container">
+<div class="col-sm-4 subcatcol">
+	<h3>Submit Payment</h3>
+	<p>Please double check all your info before you submit the form<br>After submitting the form you will be directed to the payment screen.</p>
+</div>
+<div class="col-sm-8">
+<h3>Client's Information</h3>
+<%= form_for @payment_form do |f| %>
+	<%= collection_select(:subcat,:cat_id, Cat.order(:title) , :id ,:title,{:include_blank => 'All Services'}, required: true,class: 'form-control',id: "catlist") %>
+    <%= grouped_collection_select(:payment_form, :subcat_id, Cat.order(:title) , :subcats ,:title, :id, :title,{}, required: true,class: 'form-control',id: "subcatlist") %>
+    <%= f.text_field :policy_num , class: 'form-control', placeholder: "Policy number", id: "polnum", style: "display:none" %>
+	<%= f.text_field :first_name, class: "form-control", required: true, placeholder: "First Name" %>
+	<%= f.text_field :middle_name, class: "form-control", placeholder: "Middle Name (optional)" %>
+	<%= f.text_field :last_name, class: "form-control", required: true, placeholder: "Last Name" %>
+  <%= f.text_field :business_name,class: 'form-control input-sm',placeholder: 'Business name (optional)' %>
+	<%= f.text_field :birth, class: 'form-control',placeholder: 'Date of birth (optional' %>
+	<%= f.select :status,  Query::STATUS_TYPES, {:include_blank => 'Choose your marital status (optional)'},{ class: "form-control"}%>
+	<%= f.text_field :address_one, class: "form-control", required: true, placeholder: "Address line one" %>
+	<%= f.text_field :address_two, class: "form-control", placeholder: "Address line two (optional)" %>
+	<%= collection_select(:state,:country_id, Country.order(:name) , :id ,:name,{:include_blank => 'All Countries'}, required: true,class: 'form-control',id: "countrylist") %>
+	<%= grouped_collection_select(:payment_form, :state_id, Country.order(:name) , :states ,:name, :id, :name,{}, required: true,class: 'form-control',id: "statelist") %>
+	<%= f.text_field :city, class: "form-control", placeholder: "City (optional)" %>
+	<%= f.number_field :zip, class: "form-control", placeholder: "Postal code (optional)" %>
+	<%= f.email_field :email, class: "form-control", required: true, placeholder: "Email (example@example.com)" %>
+	<%= f.phone_field :phone, class: "form-control", required: true, placeholder: "Enter phone number" %>
+	<%= f.text_area :details, class: "form-control", placeholder: "Enter any details you find useful to your payment_form here", style: 'height:350px;margin-bottom:10px' %>
+	<%= f.submit "Submit your payment form", class: "btn btn-primary" %>
+<% end %>
+</div>
+</div>
+<script>
+	$(document).ready(function(){
+  	$( "#payment_form_birth" ).datepicker({
+		dateFormat: 'D, dd M yy',
+		changeMonth: true,
+		yearRange: '1800:+0',
+		changeYear: true
+    });
+  c="";
+      subcats = $('#subcatlist').html()
+  $('#subcatlist').html("<option value="+c+">Select Category first</option>")
+  options= null;
+  cat = $('#catlist :selected').text();
+    options = $(subcats).filter("optgroup[label="+'"'+cat+'"'+"]").html();
+    $('#catlist').change(function() {
+    cat = $('#catlist :selected').text();
+      if (cat == 'insurance'){
+    $('#polnum').css('display','block');
+    $("#polnum").prop('required',true);
+  }else{
+    $('#polnum').css('display','none');
+    $("#polnum").prop('required',false);
+    $('#polnum').val('');
+  }
+    console.log(cat);
+    options = $(subcats).filter("optgroup[label="+'"'+cat+'"'+"]").html();
+    console.log(options);
+    if (options == null){
+      $('#subcatlist').html("<option value="+c+">Select Category first</option>")
+    }
+    else{
+      $('#subcatlist').html(options)
+    }
+    });
+                c="";
+    states = $('#statelist').html()
+  $('#statelist').html("<option value="+c+">Select a country first</option>")
+  options= null;
+  $('#countrylist').val(233)
+  country = $('#countrylist :selected').text();
+    options = $(states).filter("optgroup[label="+'"'+'United States'+'"'+"]").html();
+    $('#statelist').html(options);
+    $('#statelist').val(3529)
+    $('#countrylist').change(function() {
+    country = $('#countrylist :selected').text();
+    options = $(states).filter("optgroup[label="+'"'+country+'"'+"]").html();
+    console.log(options);
+    if (options == null){
+      $('#statelist').html("<option value="+c+">Select a country first</option>")
+    }
+    else{
+      $('#statelist').html(options)
+    }
+    });
+	})
+</script>

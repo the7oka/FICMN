@@ -1,0 +1,52 @@
+<script>
+$(document).ready(function(){
+	var y = location.hash;
+	$("a[href^='"+y+"']").click();
+
+})
+</script>
+<section class="jumbotron signbox">
+	<h1>Services</h1>
+</section>
+<section class="container">
+<div class="col-sm-4">
+  <ul class="nav nav-pills nav-stacked">
+  	<% @cats.each do |c| %>
+  	<%if c.id == 1 %>
+    <li class="active"><a data-toggle="tab" href="#home" style="font-size:150%"><%=c.title.humanize%></a></li>
+    <% else %>
+    <li><a data-toggle="tab" href="#menu<%=c.id%>" style="font-size:150%"><%=c.title.humanize%></a></li>
+    <% end %>
+    <% end %>
+  </ul>
+</div>
+<div class="col-sm-8">
+  <div class="tab-content">
+  <% @cats.each do |c| %>
+  <% if c.id == 1 %>
+    <div id="home" class="tab-pane fade in active">
+    <% c.subcats.each do |s| %>
+    <div class="tab-pane-pane">
+      <h3><%=s.title.humanize%></h3>
+      <p><%=s.description%></p>
+    </div>
+    <% end %>
+    </div>
+  <% else %>
+    <div id="menu<%=c.id%>" class="tab-pane fade">
+    <% c.subcats.each do |s| %>
+    <div class="tab-pane-pane">
+      <h3><%=s.title.humanize%></h3>
+      <p><%=s.description%></p>
+    </div>
+    <% end %>
+    </div>
+  <% end %>
+  <% end %>
+  	<div class="tab-signbox">
+  	<h3>Want to submit your quote request for one of our services? <a href="/users/sign_up">Sign up now!</a></h3>
+  	<p> already have an account? <a href="/users/sign_in">Sign in now!</a></p>
+  	</div>
+  </div>
+</div>
+</section>

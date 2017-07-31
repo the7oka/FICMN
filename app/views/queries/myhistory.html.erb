@@ -1,0 +1,54 @@
+<div class="jumbotron queryjumbo">
+	<h1>Hello, <%=@user.email%></h1>
+</div>
+<div class="container">
+<div class="col-sm-4 subcatcol">
+	<h3>My profile</h3>
+	<p>Signed up via: <%if @user.provider.present?%><%=@user.provider%><%else%>Manual signup<%end%></p>
+	<p>Joined Albeheary from : <%=@user.created_at%></p>
+</div>
+<div class="col-sm-8">
+	<h2>My Payment forms</h2>
+	<% if @user.payment_forms.length == 0 %>
+	<p>You don't have any payment forms yet. <a href="/payment_forms/new">Make a payment now.</a></p>
+	<% else %>
+	<% @user.payment_forms.each do |q| %>
+		<div class="col-sm-12 querybox">
+			<p>Service: <%= q.subcat.cat.title.humanize %></p>
+			<p>Category: <%= q.subcat.title %></p>
+			<div id="qb<%=q.id%>" style="display:none">
+			<p>First name: <%= q.first_name %></p>
+			<p>Middle name: <%= q.middle_name %></p>
+			<p>Last name: <%= q.last_name %></p>
+			<p>Address line one: <%= q.address_one %></p>
+			<p>Address line two: <%= q.address_two %></p>
+			<p>Country: <%= q.state.country.name %></p>
+			<p>state: <%= q.state.name %></p>
+			<p>City: <%= q.city %></p>
+			<p>Postal code: <%= q.zip %></p>
+			<p>Phone: <%= q.phone %></p>
+			<p>E-mail: <%= q.email %></p>
+			<p>Date of birth: <%= q.birth.try(:strftime,"%b %d, %Y") %></p>
+			<p>Merital status: <%= q.status %></p>
+			</div>
+			<p>Details: <%= q.details %></p>
+			<p>Query created at: <%= q.created_at.try(:strftime,"%b %d, %Y") %></p>
+			<button class="btn btn-default qbtn" tog="qb<%=q.id%>">View more details</button>
+		</div>
+	<% end %>
+	<% end %>
+</div>
+</div>
+<script>
+	$(document).ready(function(){
+		$('.qbtn').click(function(){
+			x = $(this).attr('tog')
+			$('#'+x).slideToggle()
+			if ($(this).html() == 'View more details'){
+				$(this).html('View less details')
+			}else{
+				$(this).html('View more details')
+			}
+		})
+	})
+</script>

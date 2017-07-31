@@ -1,0 +1,32 @@
+<section class="container-fluid cpcontainer">
+<%= render partial: "cp/cp" %>
+	<section class="col-sm-9 pagecontainer ">
+			<div class="col-sm-12 querybox">
+			<p>Service: <%= @ot.order.subcat.cat.title.humanize %></p>
+			<p>Category: <%= @ot.order.subcat.title %></p>
+			<p>User: <%= @ot.order.user.email %></p>
+			<div id="qb<%=@ot.order.id%>">
+			<p>First name: <%= @ot.order.first_name %></p>
+			<p>Last name: <%= @ot.order.last_name %></p>
+			<p>Business name: <%= @ot.order.business_name %></p>
+			<p>Address line one: <%= @ot.order.billing_address %></p>
+			<p>Address line two: <%= @ot.order.billing_address_2 %></p>
+			<p>Country: <%= @ot.order.country %></p>
+			<p>state: <%= @ot.order.state %></p>
+			<p>County: <%= @ot.order.county %></p>
+			<p>City: <%= @ot.order.city %></p>
+			<p>Postal code: <%= @ot.order.zipcode %></p>
+			<p>Phone: <%= @ot.order.phone %></p>
+			<p>E-mail: <%= @ot.order.email %></p>
+			</div>
+			<p>Policy number: <%= @ot.order.policy_num %></p>
+			<p>Query created at: <%= @ot.order.created_at.try(:strftime,"%b %d, %Y") %></p>
+		</div>
+	</section>
+</section>
+	<script>
+		$(document).ready(function(){
+			$('#newstab').attr('class', 'list-group-item');
+			$('#paymentstab').attr('class', 'list-group-item active');
+		})
+	</script>

@@ -1,0 +1,80 @@
+<div class="jumbotron queryjumbo">
+	<h1>Hello, <%=@user.email%></h1>
+</div>
+<div class="container">
+<div class="col-sm-4 subcatcol">
+	<h3>My profile</h3>
+	<p>Signed up via: <%if @user.provider.present?%><%=@user.provider%><%else%>Manual signup<%end%></p>
+	<p>Joined Albeheary from : <%=@user.created_at%></p>
+</div>
+<div class="col-sm-8">
+	<h2>My quote requests</h2>
+	<% if @user.queries.length == 0 %>
+	<p>You don't have any quote requests yet. We encourage you to submit your quote request regarding <a href="/queries/new/accounting">accounting</a>, <a href="/queries/new/insurance">insurance</a> or <a href="/queries/new/retirement">retirement</a> to reach out to our professional team.</p>
+	<% else %>
+	<% @user.queries.each do |q| %>
+		<div class="col-sm-12 querybox">
+			<p>Service: <%= q.subcat.cat.title.humanize %></p>
+			<p>Category: <%= q.subcat.title %></p>
+			<div id="qb<%=q.id%>" style="display:none">
+			<p>First name: <%= q.first_name %></p>
+			<p>Middle name: <%= q.middle_name %></p>
+			<p>Last name: <%= q.last_name %></p>
+			<p>Address line one: <%= q.address_one %></p>
+			<p>Address line two: <%= q.address_two %></p>
+			<p>Country: <%= q.state.country.name %></p>
+			<p>state: <%= q.state.name %></p>
+			<p>City: <%= q.city %></p>
+			<p>Postal code: <%= q.zip %></p>
+			<p>Phone: <%= q.phone %></p>
+			<p>E-mail: <%= q.email %></p>
+			<p>Date of birth: <%= q.birth.try(:strftime,"%b %d, %Y") %></p>
+			<p>Merital status: <%= q.status %></p>
+			</div>
+			<p>Details: <%= q.details %></p>
+			<p>Query created at: <%= q.created_at.try(:strftime,"%b %d, %Y") %></p>
+			<button class="btn btn-default qbtn" tog="qb<%=q.id%>">View more details</button>
+			<%= link_to "edit", edit_query_path(q) %>
+		</div>
+	<% end %>
+	<% end %>
+<!-- 	<h2>My unpaid invoices</h2>
+	<% if @invoices.length == 0 %>
+	Currently, You don't have any unpaid invoice. Please contacts us at support@albeheary.com if your invoice is not showing up.
+	<% else %>
+	<% @invoices.each do |i| %>
+	<div class="col-sm-12 querybox">
+		<p>Invoice #: <%=i.id%></p>
+		<p>Invoice amount: <%=i.amount%> USD</p>
+		<p>Invoice details: <%=i.details%></p>
+		<a href="/invoices/<%=i.id%>/payment"><button class="btn btn-default">Pay invoice</button></a>
+	</div>
+	<% end %>
+	<% end %>
+	<h2>My direct payments</h2>
+	<% if @paiddp.length == 0 %>
+	Currently, You don't have any direct payments. for a direct payment press <a href="/payment">Here</a>.
+	<% else %>
+	<% @paiddp.each do |i| %>
+	<div class="col-sm-12 querybox">
+		<p>#: <%=i.id%></p>
+		<p>Amount: <%=i.amount/100%> USD</p>
+		<p>paid at: <%=i.created_at%></p>
+	</div>
+	<% end %>
+	<% end %> -->
+</div>
+</div>
+<script>
+	$(document).ready(function(){
+		$('.qbtn').click(function(){
+			x = $(this).attr('tog')
+			$('#'+x).slideToggle()
+			if ($(this).html() == 'View more details'){
+				$(this).html('View less details')
+			}else{
+				$(this).html('View more details')
+			}
+		})
+	})
+</script>
